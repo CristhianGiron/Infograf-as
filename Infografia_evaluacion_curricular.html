@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1160, user-scalable=yes">
+<title>Evaluación curricular — cuaderno visual</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&display=swap');
+:root{
+ --paper:#f7f2e8;--ink:#253b36;--muted:#69736a;--tomato:#d96d54;
+ --mustard:#e8bd54;--sage:#b9cbb0;--blue:#b9d2d6;--pink:#eac3b6;
+ --lilac:#d4c9df;--white:#fffdf7;--rule:#d9d0c1;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-width:1160px;overflow-x:hidden;color:var(--ink);font-family:'DM Sans',sans-serif;background-color:var(--paper);
+ background-image:radial-gradient(#d7cbb8 0.65px,transparent .65px);background-size:13px 13px;line-height:1.45}
+/* textura de papel */
+body:after{content:"";position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.22;mix-blend-mode:multiply;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .22 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+button{font:inherit}
+.wrap{width:1080px;margin:0 auto;position:relative}
+/* marco de la infografía */
+.frame{display:block;position:relative;width:1112px;margin:16px auto 24px;border:3px solid var(--ink);border-radius:22px;box-shadow:6px 7px 0 var(--ink);overflow:hidden;background-color:var(--paper);background-image:radial-gradient(#d7cbb8 0.65px,transparent .65px);background-size:13px 13px}
+.hand{font-family:'Caveat',cursive;font-weight:600}
+.sec{padding:22px 0 6px;position:relative}
+
+/* ---------- Íconos propios ---------- */
+.ico{width:42px;height:42px;display:block;overflow:visible}
+.ico.lg{width:58px;height:58px}
+
+/* ---------- Detalles hechos a mano ---------- */
+.mk{--m:rgba(232,189,84,.78);background:linear-gradient(transparent 58%,var(--m) 58% 92%,transparent 92%);padding:0 .15em;margin:0 -.05em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.mk.pk{--m:rgba(217,109,84,.38)}.mk.bl{--m:rgba(143,186,192,.6)}.mk.sg{--m:rgba(145,173,134,.55)}
+.wavy{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='6' viewBox='0 0 16 6'%3E%3Cpath d='M0 3Q4 0 8 3T16 3' fill='none' stroke='%23d96d54' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x left bottom;padding-bottom:8px}
+.circled{position:relative;display:inline-block;padding:0 .2em}
+.circled:after{content:"";position:absolute;inset:-.3em -.35em;pointer-events:none;
+ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40' preserveAspectRatio='none'%3E%3Cpath d='M9 23C4 9 32 3 56 4s41 7 39 17-27 16-53 15S3 33 11 15' fill='none' stroke='%23d96d54' stroke-width='2.4' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.tape{position:absolute;z-index:3;width:78px;height:23px;top:-11px;left:34px;background:rgba(232,189,84,.62);transform:rotate(-4deg);box-shadow:0 1px 2px rgba(37,59,54,.15);
+ clip-path:polygon(0 0,4% 20%,0 40%,4% 60%,0 80%,0 100%,100% 100%,96% 80%,100% 60%,96% 40%,100% 20%,100% 0)}
+.tape.t2{background:rgba(143,186,192,.65);transform:rotate(5deg)}
+.tape.t3{background:rgba(217,109,84,.5);transform:rotate(-7deg)}
+.annot{position:absolute;color:var(--tomato);font-size:1.45rem;line-height:1;white-space:nowrap;z-index:4;pointer-events:none}
+.annot svg{display:block}
+
+/* ---------- Navegación y portada ---------- */
+.nav{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--rule);padding:10px 2px 8px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.nav span:last-child{color:var(--tomato)}
+.hero{position:relative;margin:12px 0 30px;padding:22px 44px;background:var(--mustard);border-radius:43% 5% 7% 5% / 7% 5% 8% 5%;transform:rotate(-.5deg);border:1px solid #d5aa43;animation:softRise .7s ease-out both}
+.hero:after{content:"";position:absolute;inset:9px;border:1.5px dashed rgba(37,59,54,.35);border-radius:43% 5% 7% 5% / 7% 5% 8% 5%;pointer-events:none}
+.hero-content{position:relative;z-index:1;display:grid;grid-template-columns:1.4fr .6fr;align-items:center;gap:24px;transform:rotate(.5deg)}
+.kicker{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:600;letter-spacing:-.035em}
+h1{font-size:3.9rem;line-height:.93;margin:8px 0 10px;max-width:700px}
+.hero p{font-size:1rem;max-width:550px;margin:0}
+.hero-art{display:grid;place-items:center;min-height:120px;position:relative}
+.sun{width:116px;height:116px;background:var(--tomato);border-radius:48% 52% 43% 57% / 56% 40% 60% 44%;display:grid;place-items:center;box-shadow:6px 5px 0 var(--ink);transform:rotate(7deg);border:2px solid var(--ink);animation:gentleFloat 5s ease-in-out infinite}
+.sun .ico{width:60px;height:60px}
+.doodle{position:absolute;font-size:2rem;color:var(--ink);font-family:'Fraunces',serif}.d1{top:6%;right:5%;transform:rotate(12deg)}.d2{bottom:4%;left:4%;font-size:2.8rem;transform:rotate(-16deg)}.d3{top:13%;left:4%;font-size:1.4rem}
+.scribble{display:inline-block;color:var(--tomato);font-size:1.7rem;transform:rotate(-8deg);margin-left:6px}
+
+/* ---------- Encabezados de sección (varios formatos) ---------- */
+.sh{margin:0 0 12px;position:relative}
+.sh h2{font-size:2.1rem;margin:0;line-height:1.02}
+.sh p{margin:4px 0 0;color:var(--muted);font-size:.88rem;max-width:600px}
+.sh .label{display:inline-block;transform:rotate(-3deg);background:var(--mustard);border:1px solid var(--ink);padding:3px 10px;font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;box-shadow:2px 2px 0 var(--ink)}
+.l1{display:flex;align-items:flex-end;gap:18px}
+.l1 .txt{flex:1}
+.l1 .hnote{max-width:360px;text-align:right;color:var(--tomato);font-size:1.35rem;line-height:1;transform:rotate(-3deg)}
+.bignum{font-family:'Fraunces',serif;font-weight:700;font-size:4.2rem;line-height:.72;color:transparent;-webkit-text-stroke:1.6px var(--ink);letter-spacing:-.04em}
+.l3{text-align:center}.l3 p{margin-left:auto;margin-right:auto}
+.l4{text-align:right}.l4 p{margin-left:auto}
+
+/* ---------- Tarjetas ---------- */
+.card{position:relative;padding:16px 18px 14px;background:var(--white);border:1.5px solid var(--ink);box-shadow:4px 5px 0 var(--ink)}
+.card h3{font-size:1.4rem;line-height:1.08;margin:6px 0 6px}
+.card p{margin:0;color:#4d6057;font-size:.93rem}
+.number{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.js .reveal{opacity:0;translate:0 28px;transition:opacity .7s ease,translate .7s ease}
+.js .reveal.in{opacity:1;translate:0 0}
+.js .reveal.in.card:hover{translate:0 -3px}
+.js .reveal.in.card{transition:translate .25s ease}
+
+/* Fila A: ideas clave, tamaños y alturas distintos */
+.row-a{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;align-items:start}
+.cA1{grid-column:span 5;background:#f7ddd3;border-radius:5% 3% 7% 4% / 4% 7% 3% 6%;transform:rotate(-1.6deg);padding-bottom:16px}
+.cA2{grid-column:span 4;margin-top:14px;background:#f6e8b9;border-radius:3px;border-width:1px;box-shadow:3px 7px 14px rgba(37,59,54,.22);transform:rotate(1.9deg)}
+.cA3{grid-column:span 3;margin-top:0;background:#e0ecec;border-radius:7% 4% 5% 3% / 3% 6% 4% 7%;transform:rotate(-1deg)}
+.cA3:after{content:"";position:absolute;right:-1px;bottom:-1px;width:34px;height:34px;background:linear-gradient(135deg,transparent 50%,#cfe0e0 50%);border-top-left-radius:6px;box-shadow:-2px -2px 3px rgba(37,59,54,.12)}
+.cA3 h3{font-size:1.25rem}
+
+/* Botones interactivos (varias formas) */
+.note{position:relative;display:inline-grid;place-items:center;width:36px;height:36px;margin-top:10px;padding:0;border-radius:50%;background:var(--tomato);color:#fff;border:2px solid var(--ink);font-family:'DM Sans',sans-serif;font-size:1.5rem;font-weight:500;line-height:1;cursor:pointer;
+ box-shadow:2px 2px 0 var(--ink),0 0 0 0 rgba(217,109,84,.6);animation:ringPulse 2s ease-out infinite;transition:transform .18s,background .18s}
+.note:hover{transform:scale(1.14) rotate(90deg);background:#c95c43;animation-play-state:paused}
+.note.pill{display:inline-flex;gap:7px;align-items:center;justify-content:center;width:auto;padding:0 15px 0 11px;border-radius:99px;font-size:.9rem;font-weight:700}
+.note.pill b{font-size:1.3rem;font-weight:500;line-height:1}
+.note.pill:hover{transform:scale(1.05) rotate(-2deg)}
+.note.arrow{font-size:1.45rem;border-radius:50% 46% 54% 48%}
+.note.arrow:hover{transform:translateX(5px) scale(1.08)}
+.note:focus-visible,.map-pin:focus-visible,.flip:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+@keyframes ringPulse{
+ 0%{box-shadow:2px 2px 0 var(--ink),0 0 0 0 rgba(217,109,84,.6)}
+ 70%{box-shadow:2px 2px 0 var(--ink),0 0 0 16px rgba(217,109,84,0)}
+ 100%{box-shadow:2px 2px 0 var(--ink),0 0 0 0 rgba(217,109,84,0)}}
+@keyframes ringPulseHl{
+ 0%{box-shadow:2px 2px 0 var(--ink),0 0 0 0 rgba(232,189,84,1)}
+ 100%{box-shadow:2px 2px 0 var(--ink),0 0 0 30px rgba(232,189,84,0)}}
+
+/* ---------- Bandas de color con borde ondulado ---------- */
+.band{position:relative;padding:28px 0 30px;margin-top:24px;background:var(--bg)}
+.band.sage{--bg:#e0ead9}.band.lilac{--bg:#e9e1f0}.band.blue{--bg:#dcebeb}
+.edge{z-index:2;position:absolute;left:0;width:100%;height:24px;display:block}
+.edge path{fill:var(--bg)}
+.edge.t{top:-23px}
+.edge.b{bottom:-23px;transform:scaleY(-1)}
+
+/* Banda B: gráfico + notas adhesivas */
+.row-b{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;align-items:start}
+.chartcard{grid-column:span 7;transform:rotate(.6deg);border-radius:3% 2% 4% 2%;padding-top:20px}
+.chart-layout{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:12px;margin-top:8px}
+.chart{width:100%;max-width:260px;margin:auto;display:block}
+.chart text{font-family:'DM Mono',monospace;fill:var(--ink);font-size:10px}
+.chart .bar{transform-origin:bottom;animation:rise 1s ease-out both}
+@keyframes rise{from{transform:scaleY(.05)}to{transform:scaleY(1)}}
+.sticker{display:inline-block;background:var(--mustard);border:1px solid var(--ink);padding:5px 10px;transform:rotate(-3deg);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase}
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 2px}
+.mini{padding:7px 11px;border:1px dashed #8a9989;border-radius:13px 8px 15px 7px;background:#fffdf4}
+.mini:nth-child(2){transform:rotate(1.2deg)}.mini:nth-child(3){transform:rotate(-1deg)}
+.mini strong{display:block;font-family:'Fraunces',serif;font-size:1.15rem;line-height:1.1}
+.mini span{font-size:.78rem;color:var(--muted)}
+.postits{grid-column:span 5;position:relative;height:292px}
+.postits h3{font-size:1.4rem;line-height:1.08;margin:0;display:inline;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='6' viewBox='0 0 16 6'%3E%3Cpath d='M0 3Q4 0 8 3T16 3' fill='none' stroke='%23d96d54' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x left bottom;padding-bottom:8px}
+.pit{position:absolute;width:230px;padding:15px 15px 11px;box-shadow:3px 6px 12px rgba(37,59,54,.22)}
+.pit:after{content:"";position:absolute;top:-7px;left:50%;width:15px;height:15px;margin-left:-7px;border-radius:50%;background:var(--tomato);border:1.5px solid var(--ink);box-shadow:1px 2px 0 rgba(37,59,54,.35)}
+.pit b{display:block;font-family:'Caveat',cursive;font-size:1.6rem;line-height:1;margin-bottom:3px}
+.pit span{font-size:.84rem;line-height:1.4;display:block}
+.pit1{left:0;top:42px;width:210px;background:#f4c9bd;transform:rotate(-4deg)}
+.pit2{left:206px;top:92px;background:#f6e08a;transform:rotate(3.2deg)}
+.pit3{left:30px;top:176px;background:#bfdde3;transform:rotate(-1.6deg);width:250px}
+.postits .note{position:absolute;right:0;bottom:0;margin:0}
+
+/* Camino: sendero curvo */
+.trail{position:relative;height:196px}
+.trail .pathsvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start}
+.stp{width:212px;justify-self:center;padding:13px 16px 10px;border:1.5px solid var(--ink);box-shadow:3px 4px 0 var(--ink);min-height:112px;background:var(--white)}
+.stp:nth-child(1){transform:rotate(-2deg);border-radius:43% 7% 9% 6% / 12% 8% 9% 9%}
+.stp:nth-child(2){margin-top:62px;transform:rotate(1.8deg);background:#f7ddd3;border-radius:8% 40% 7% 10% / 9% 12% 9% 8%}
+.stp:nth-child(3){transform:rotate(-1.2deg);background:#f6e8b9;border-radius:9% 8% 40% 7% / 8% 10% 12% 9%}
+.stp:nth-child(4){margin-top:62px;transform:rotate(2.2deg);background:#e0ecec;border-radius:7% 9% 8% 42% / 10% 8% 12% 10%}
+.stp .bubble{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--tomato);color:white;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;border:1px solid var(--ink)}
+.stp b{display:block;margin:6px 0 2px;font-family:'Fraunces',serif;font-size:1.1rem}
+.stp span.t{font-size:.84rem;color:#5d6d63;display:block;line-height:1.5}
+.trail .note{position:absolute;left:0;bottom:0;margin:0}
+
+/* Banda D: tarjetas que se voltean */
+.flips{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start;padding-bottom:4px}
+.fw1{transform:rotate(-1.6deg)}.fw2{margin-top:12px;transform:rotate(1.4deg)}.fw3{margin-top:4px;transform:rotate(-.8deg)}.fw4{margin-top:16px;transform:rotate(2deg)}
+.flip{display:block;width:100%;height:196px;padding:0;border:0;background:none;text-align:left;cursor:pointer;perspective:1000px;color:var(--ink)}
+.flip-in{position:relative;display:block;width:100%;height:100%;transition:transform .65s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;padding:14px 16px 10px;border:1.5px solid var(--ink);box-shadow:4px 5px 0 var(--ink);backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;gap:4px}
+.front .ft{font-family:'Fraunces',serif;font-weight:600;font-size:1.3rem;line-height:1.08;letter-spacing:-.03em;margin-top:4px}
+.front .hint{margin-top:auto;color:var(--tomato);font-size:1.2rem;transform:rotate(-3deg);align-self:flex-end}
+.bface{transform:rotateY(180deg);background:var(--white)}
+.bface .bt{font-size:.88rem;line-height:1.45;color:#42564d;margin-top:4px}
+.bface:after{content:"";position:absolute;inset:8px;border:1.5px dashed rgba(37,59,54,.28);pointer-events:none}
+.f1{background:#f7ddd3;border-radius:5% 3% 7% 4% / 4% 7% 3% 6%}
+.f2{background:#e2ebdc;border-radius:3% 8% 4% 6% / 7% 3% 6% 4%}
+.f3{background:#e0ecec;border-radius:7% 4% 6% 3% / 3% 6% 4% 7%}
+.f4{background:#f6e8b9;border-radius:3% 6% 4% 7%}
+.flips .hand.tip{grid-column:1/-1}
+.flip-hint{position:absolute;right:0;top:-50px;color:var(--tomato);font-size:1.5rem;transform:rotate(-3deg)}
+
+/* Banda E: interna / externa */
+.duo{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:stretch}
+.panel{display:flex;flex-direction:column;align-items:flex-start;padding:16px 24px 14px}
+.panel h3{font-size:1.6rem}
+.panel p{font-size:.93rem}
+.pL{background:#e2ebdc;border-radius:34px 8px 10px 34px / 34px 10px 8px 34px;transform:rotate(-.9deg)}
+.pR{background:#e0ecec;border-radius:8px 34px 34px 10px / 10px 34px 34px 8px;transform:rotate(.9deg)}
+.panel .row{display:flex;gap:12px;align-items:center}
+.vs{position:absolute;left:50%;top:50%;z-index:5;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:var(--tomato);border:2px solid var(--ink);box-shadow:3px 4px 0 var(--ink);color:#fff;font-size:1.9rem;display:grid;place-items:center;transform:rotate(-9deg);line-height:1;padding-bottom:5px}
+.panel .note{margin-top:auto}
+.panel p{margin-bottom:8px}
+
+/* Banda F: mapa y cita */
+.row-f{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;align-items:start}
+.map-card{grid-column:span 7;background:#fffdf7;border-radius:5% 3% 7% 3%;transform:rotate(.5deg)}
+.mapbox{min-height:200px;display:grid;place-items:center}
+.mapbox svg{width:100%;max-height:250px;overflow:visible}
+.map-pin{cursor:pointer;transition:filter .2s,transform .2s;transform-box:fill-box;transform-origin:center}
+.map-pin:hover{filter:brightness(1.05);transform:scale(1.06)}
+.map-pin:focus{outline:none}
+.map-pin .hl{display:none}
+body.show-interactives .map-pin .hl{display:inline}
+.quote-card{grid-column:span 5;margin-top:6px;background:#e8dff0;border-radius:4% 7% 3% 6%;transform:rotate(-1.4deg);padding:18px 22px 16px}
+.quote{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:1.4rem;line-height:1.25;margin-top:6px;letter-spacing:-.02em}
+.quote-card .sig{display:block;margin-top:14px;font-size:1.5rem;color:var(--tomato);transform:rotate(-2deg)}
+
+/* Referencias */
+.references{position:relative;display:grid;grid-template-columns:1fr;gap:8px;padding:18px 24px 10px 50px;background:#fffdf7;border:1px solid #d9d0c1;box-shadow:3px 5px 10px rgba(37,59,54,.14);border-radius:6px;transform:rotate(-.4deg);
+ background-image:repeating-linear-gradient(transparent 0 27px,rgba(143,186,192,.22) 27px 28px)}
+.references:after{content:"";position:absolute;left:34px;top:0;bottom:0;width:1.5px;background:rgba(217,109,84,.45)}
+.ref-intro{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.ref-intro .sticker{font-size:9px;padding:5px 8px;transform:rotate(-1.5deg)}
+.ref-intro h3{font-size:1.25rem;line-height:1.1;margin:0}
+.ref-intro .hand{color:var(--tomato);font-size:1.25rem;transform:rotate(-2deg)}
+.apa-list{margin:0;padding:0;list-style:none;columns:2;column-gap:30px}
+.apa-list li{break-inside:avoid;padding:0 0 4px 1.25em;margin:0 0 4px;border-bottom:1px dashed #e1d9cc;font-size:.78rem;line-height:1.42;text-indent:-1.25em;color:#45564e}
+.apa-list li:last-child{border-bottom:0}
+.footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:10px auto 0;padding:9px 0 12px;width:1080px;border-top:1px solid var(--rule);font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(28,42,37,.58);display:none;align-items:center;justify-content:center;padding:18px;z-index:60}
+.modal.open{display:flex}
+.modal-box{max-width:510px;width:100%;background:var(--paper);border:1.5px solid var(--ink);box-shadow:7px 7px 0 var(--mustard);border-radius:4% 3% 5% 4%;padding:30px;position:relative;transform:rotate(-.6deg)}
+.modal-box h2{font-size:2rem;line-height:1.05;margin:0 35px 13px 0}
+.modal-box p{color:#4d6057}
+.close{position:absolute;right:13px;top:13px;width:35px;height:35px;border:1px solid var(--ink);border-radius:50%;background:var(--pink);font-size:1.3rem;cursor:pointer;color:var(--ink)}
+.back{display:inline-block;margin-top:14px;padding:8px 14px;background:var(--white);border:1px solid var(--ink);border-radius:48% 7% 43% 8% / 10% 35% 9% 30%;font-size:.85rem;font-weight:700;cursor:pointer;color:var(--ink);box-shadow:2px 2px 0 var(--ink)}
+
+/* Botón para resaltar los elementos interactivos */
+.interaction-toggle{position:fixed;right:20px;bottom:20px;z-index:55;display:grid;place-items:center;width:50px;height:50px;padding:0;border:1.5px solid var(--ink);border-radius:50%;background:var(--white);color:var(--ink);box-shadow:3px 4px 0 var(--ink);cursor:pointer;transition:transform .2s,background .2s}
+.interaction-toggle:hover{transform:translateY(-2px)}
+.interaction-toggle[aria-pressed="true"]{background:var(--mustard)}
+.interaction-toggle:after{content:attr(data-tip);position:absolute;right:calc(100% + 14px);top:50%;transform:translateY(-50%) translateX(6px);padding:8px 13px;background:var(--ink);color:#fff;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;line-height:1.2;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+.interaction-toggle:before{content:"";position:absolute;right:calc(100% + 8px);top:50%;transform:translateY(-50%) translateX(6px);border:6px solid transparent;border-left-color:var(--ink);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+.interaction-toggle:hover:after,.interaction-toggle:focus-visible:after,.interaction-toggle:hover:before,.interaction-toggle:focus-visible:before{opacity:1;transform:translateY(-50%) translateX(0)}
+.interaction-toggle:focus-visible{outline:3px solid var(--tomato);outline-offset:3px}
+body.show-interactives .note{background:var(--mustard);color:var(--ink);animation:ringPulseHl 1s ease-out infinite}
+body.show-interactives .note:before{content:"¡Clic!";position:absolute;bottom:calc(100% + 9px);left:50%;transform:translateX(-50%);padding:3px 9px;background:var(--ink);color:#fff;border-radius:99px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.04em;white-space:nowrap;pointer-events:none}
+body.show-interactives .flip .hint{background:var(--mustard);color:var(--ink);padding:0 8px;border-radius:8px}
+@keyframes softRise{from{opacity:0;translate:0 10px}to{opacity:1;translate:0 0}}
+@keyframes gentleFloat{0%,100%{translate:0 0;rotate:0deg}50%{translate:0 -5px;rotate:1deg}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.ring{display:none}.js .reveal{opacity:1;translate:none}}
+@media print{
+ body{background:white}body:after{display:none}
+ .note,.interaction-toggle{display:none!important}
+ .modal{display:none!important}
+ .js .reveal{opacity:1!important;translate:none!important}
+ .card,.hero{box-shadow:none;break-inside:avoid}
+ .flip .bface{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Íconos dibujados a mano (SVG) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<defs>
+<symbol id="i-search" viewBox="0 0 48 48"><g stroke="#253b36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="12" style="fill:var(--f,#b9d2d6)"/><path d="M29 29l12 12" stroke-width="4.5" fill="none"/><path d="M14 18q2-5 7-5" fill="none"/></g></symbol>
+<symbol id="i-puzzle" viewBox="0 0 48 48"><g stroke="#253b36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h12a4 4 0 1 1 8 0h12v12a4 4 0 1 0 0 8v10H8z" style="fill:var(--f,#91ad86)"/><path d="M14 34h8" fill="none" stroke-width="1.8"/></g></symbol>
+<symbol id="i-sprout" viewBox="0 0 48 48"><g stroke="#253b36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 42V24" fill="none"/><path d="M24 27C24 15 14 12 7 14c0 9 6 15 17 13z" style="fill:var(--f,#91ad86)"/><path d="M24 22c0-10 8-14 17-12 0 9-6 15-17 12z" style="fill:#fffdf7"/><path d="M13 42h22" fill="none"/></g></symbol>
+<symbol id="i-book" viewBox="0 0 48 48"><g stroke="#253b36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="30" width="36" height="9" rx="2.5" style="fill:var(--f,#e8bd54)"/><rect x="9" y="20" width="31" height="9" rx="2.5" style="fill:#fffdf7"/><rect x="7" y="10" width="33" height="9" rx="2.5" style="fill:#b9d2d6"/><path d="M14 34.5h7M16 24.5h6M14 14.5h8" stroke-width="1.8" fill="none"/></g></symbol>
+<symbol id="i-target" viewBox="0 0 48 48"><g stroke="#253b36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="26" r="15" style="fill:var(--f,#d96d54)"/><circle cx="22" cy="26" r="9" style="fill:#fffdf7"/><circle cx="22" cy="26" r="3.5" style="fill:#253b36"/><path d="M24 24l15-15M33 7l6 1 1 6" fill="none"/></g></symbol>
+<symbol id="i-compass" viewBox="0 0 48 48"><g stroke="#253b36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17" style="fill:var(--f,#b9d2d6)"/><path d="M31 17l-5 9-9 5 5-9z" style="fill:#fffdf7"/><circle cx="24" cy="24" r="1.8" style="fill:#253b36"/></g></symbol>
+<symbol id="i-chat" viewBox="0 0 48 48"><g stroke="#253b36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9h32a2 2 0 0 1 2 2v19a2 2 0 0 1-2 2H23l-9 8v-8H8a2 2 0 0 1-2-2V11a2 2 0 0 1 2-2z" style="fill:var(--f,#e8bd54)"/><path d="M14 17h19M14 24h11" fill="none"/></g></symbol>
+<symbol id="i-brush" viewBox="0 0 48 48"><g stroke="#253b36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6C13 6 6 14 6 24s8 18 18 18c4 0 5-3 3-6s0-6 4-6h5c4 0 6-3 6-7C42 12 34 6 24 6z" style="fill:var(--f,#d4c9df)"/><circle cx="16" cy="22" r="2.8" style="fill:#d96d54"/><circle cx="24" cy="14" r="2.8" style="fill:#fffdf7"/><circle cx="33" cy="19" r="2.8" style="fill:#b9d2d6"/><circle cx="15" cy="31" r="2.8" style="fill:#e8bd54"/></g></symbol>
+<symbol id="i-school" viewBox="0 0 48 48"><g stroke="#253b36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20L24 9l19 11z" style="fill:var(--f,#e8bd54)"/><rect x="9" y="20" width="30" height="21" style="fill:#fffdf7"/><rect x="20" y="29" width="8" height="12" style="fill:#b9d2d6"/><path d="M24 9V3l6 2-6 2" style="fill:#d96d54"/></g></symbol>
+<symbol id="i-globe" viewBox="0 0 48 48"><g stroke="#253b36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17" style="fill:var(--f,#b9d2d6)"/><ellipse cx="24" cy="24" rx="7" ry="17" fill="none"/><path d="M7 24h34M10 15h28M10 33h28" fill="none" stroke-width="1.8"/></g></symbol>
+<symbol id="i-pencil" viewBox="0 0 48 48"><g stroke="#253b36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 39l2-9 21-21 7 7-21 21z" style="fill:var(--f,#e8bd54)"/><path d="M29 12l7 7" fill="none"/><path d="M9 39l2-9 7 7z" style="fill:#fffdf7"/></g></symbol>
+</defs>
+</svg>
+
+<button class="interaction-toggle" id="interaction-toggle" type="button" aria-pressed="false" aria-label="Resaltar elementos interactivos" data-tip="Resaltar elementos interactivos">
+  <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="11" fill="none" stroke="#d96d54" stroke-width="2" stroke-dasharray="3 3"/><circle cx="13" cy="13" r="5.5" fill="#d96d54" stroke="#253b36" stroke-width="1.5"/></svg>
+</button>
+
+<main class="frame">
+<!-- ===== Portada ===== -->
+<div class="wrap">
+  <div class="nav"><span>Cuaderno visual · Educación</span><span>Unidad 01 / Explora a tu ritmo ↘</span></div>
+  <header class="hero">
+    <i class="tape" style="left:80px"></i><i class="tape t2" style="left:auto;right:100px;top:-10px"></i>
+    <div class="hero-content">
+      <div>
+        <div class="kicker">Una guía para mirar más de cerca</div>
+        <h1>Evaluación<br><span class="wavy">curricular</span><span class="scribble">✳</span></h1>
+        <p>¿Cómo sabemos si una propuesta curricular está respondiendo a lo que necesita una comunidad educativa? Empecemos por observar, preguntar y <span class="circled">comprender</span>.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true"><span class="doodle d1">✳</span><span class="doodle d2">〰</span><span class="doodle d3">✦</span><div class="sun"><svg class="ico"><use href="#i-book"/></svg></div></div>
+    </div>
+    <span class="hand annot" style="right:44px;bottom:-30px;transform:rotate(-3deg)">
+      abre cada “+” para descubrir más
+      <svg width="48" height="30" viewBox="0 0 48 30" fill="none" stroke="#d96d54" stroke-width="2.4" stroke-linecap="round" style="position:absolute;left:-50px;top:-8px"><path d="M44 22C28 26 12 20 5 5"/><path d="M4 14l1-9 9 3"/></svg>
+    </span>
+  </header>
+</div>
+
+<!-- ===== Parada 01 · Ideas clave ===== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sh l1 reveal">
+      <span class="bignum" aria-hidden="true">01</span>
+      <div class="txt"><h2>Primero, las ideas clave <span class="scribble">↘</span></h2><p>Pequeñas notas para orientarte. Pulsa los botones para profundizar.</p></div>
+    </div>
+    <div class="row-a">
+      <article class="card cA1 reveal">
+        <i class="tape"></i>
+        <svg class="ico lg" aria-hidden="true" style="--f:#b9d2d6"><use href="#i-search"/></svg>
+        <div class="number" style="margin-top:4px">Nota de campo · 01</div>
+        <h3>¿Qué significa evaluar?</h3>
+        <p>Mirar una propuesta curricular <span class="mk">de manera organizada</span> para comprender cómo funciona y qué decisiones podrían mejorarla.</p>
+        <span class="hand annot" style="right:22px;top:20px;transform:rotate(5deg)">el punto de partida</span>
+        <button class="note" aria-label="Abrir nota: una mirada evaluativa" data-title="Una mirada evaluativa" data-text="La evaluación curricular reúne y analiza información sobre una propuesta educativa para valorar su desarrollo y orientar decisiones. Es un proceso sistemático que valora la pertinencia, coherencia y eficacia del currículo en sus niveles macro, meso y micro. Según el artículo 184 del Reglamento General a la LOEI, es un proceso continuo de observación, valoración y registro de información sobre el logro de los objetivos de aprendizaje, con retroalimentación para mejorar la metodología de enseñanza (Ministerio de Educación del Ecuador, 2022). Sus rasgos: sistemática, integral, continua, participativa y flexible.">+</button>
+      </article>
+      <article class="card cA2 reveal">
+        <i class="tape t3" style="left:50%;margin-left:-39px"></i>
+        <svg class="ico" aria-hidden="true" style="--f:#91ad86"><use href="#i-puzzle"/></svg>
+        <div class="number" style="margin-top:4px">Piezas que se conectan · 02</div>
+        <h3>¿Qué observamos?</h3>
+        <p>Podemos mirar los propósitos, los contenidos, las estrategias de enseñanza, la implementación y <span class="mk bl">las evidencias de aprendizaje</span>.</p>
+        <button class="note pill" aria-label="Abrir nota: las piezas del currículo" data-title="Las piezas del currículo" data-text="Una revisión puede considerar el diseño curricular, su puesta en práctica y los resultados disponibles. Según Posner (2005), el objeto de estudio es el currículo como conjunto de elementos organizados, analizados desde sus fundamentos, su estructura, su implementación y sus resultados. También se revisa la consistencia vertical (de la misión institucional al aula) y la horizontal (interdisciplinariedad)."><b>+</b> Leer más</button>
+      </article>
+      <article class="card cA3 reveal">
+        <svg class="ico" aria-hidden="true" style="--f:#91ad86"><use href="#i-sprout"/></svg>
+        <div class="number" style="margin-top:4px">Para seguir creciendo · 03</div>
+        <h3>¿Para qué nos sirve?</h3>
+        <p>Para reconocer lo que funciona, identificar dificultades y plantear cambios <span class="wavy">con fundamento</span>, en lugar de decidir por intuición.</p>
+        <button class="note arrow" aria-label="Abrir nota: de la observación a la mejora" data-title="De la observación a la mejora" data-text="La información evaluativa puede apoyar ajustes en objetivos, contenidos, estrategias y recursos. Ayuda a decidir si conviene conservar, modificar o sustituir el currículo, y aporta a su pertinencia, actualización y calidad educativa. Su valor depende de la calidad de las evidencias y de cómo se utilicen los hallazgos.">→</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Parada 02 · Leer las señales ===== -->
+<section class="band sage">
+  <svg class="edge t" viewBox="0 0 1200 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24V9C90 -3 180 21 300 9S510 -3 600 9S810 21 900 9S1110 -3 1200 9V24Z"/></svg>
+  <svg class="edge b" viewBox="0 0 1200 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24V11C100 22 190 -2 310 11S500 22 610 11S800 -2 910 11S1100 22 1200 11V24Z"/></svg>
+  <div class="wrap">
+    <div class="sh l2 reveal">
+      <span class="label">Parada 02</span>
+      <h2>Leer las señales</h2>
+      <p>Los datos también cuentan historias, pero siempre hay que saber de dónde vienen.</p>
+    </div>
+    <div class="row-b">
+      <article class="card chartcard reveal">
+        <i class="tape t2" style="left:40px"></i>
+        <span class="sticker">Ejemplo visual · No son datos reales</span>
+        <div class="chart-layout">
+          <div>
+            <h3>Cuatro ventanas para observar</h3>
+            <p>Organiza las evidencias por dimensión y compáralas con los criterios definidos. Un gráfico ayuda a ordenar la conversación, no reemplaza el análisis.</p>
+            <div class="mini-grid">
+              <div class="mini"><strong>01</strong><span>Diseño</span></div><div class="mini"><strong>02</strong><span>Implementación</span></div>
+              <div class="mini"><strong>03</strong><span>Resultados</span></div><div class="mini"><strong>04</strong><span>Mejora</span></div>
+            </div>
+            <button class="note pill" aria-label="Abrir nota: cinco alcances para revisar" data-title="Cinco alcances para revisar" data-text="Según Díaz-Barriga et al. (1990) y Broch y Rodríguez (2018): pertinencia social (¿responde a problemas reales del entorno?), coherencia interna (¿los contenidos conducen al perfil de egreso?), factibilidad (¿hay laboratorios, docentes y presupuesto?), efectividad pedagógica (¿los estudiantes aprenden con las metodologías actuales?) e impacto y seguimiento (¿los egresados consiguen empleo y destacan en su área?)."><b>+</b> Cinco alcances</button>
+          </div>
+          <div>
+            <svg class="chart" viewBox="0 0 320 245" role="img" aria-label="Gráfico decorativo de cuatro dimensiones">
+              <g stroke="#d9d0c1" stroke-dasharray="3 4"><path d="M25 35H305M25 80H305M25 125H305M25 170H305M25 210H305"/></g>
+              <g class="bar"><rect x="45" y="82" width="38" height="128" rx="10" fill="#d96d54"/><rect x="108" y="48" width="38" height="162" rx="10" fill="#91ad86"/><rect x="171" y="105" width="38" height="105" rx="10" fill="#8fbac0"/><rect x="234" y="65" width="38" height="145" rx="10" fill="#b6a2cb"/></g>
+              <g><text x="64" y="230" text-anchor="middle">Diseño</text><text x="127" y="230" text-anchor="middle">Proceso</text><text x="190" y="230" text-anchor="middle">Logros</text><text x="253" y="230" text-anchor="middle">Mejora</text></g>
+            </svg>
+            <div class="hand" style="text-align:center;color:var(--tomato);font-size:1.35rem;transform:rotate(-2deg);margin-top:2px">aquí irían tus datos reales</div>
+          </div>
+        </div>
+      </article>
+      <div class="postits reveal">
+        <h3>Antes de sacar conclusiones…</h3>
+        <div class="pit pit1"><b>Coherencia</b><span>¿Los objetivos, contenidos y actividades se relacionan?</span></div>
+        <div class="pit pit2"><b>Pertinencia</b><span>¿La propuesta tiene sentido para su contexto?</span></div>
+        <div class="pit pit3"><b>Evidencia</b><span>¿Qué información respalda lo que afirmamos?</span></div>
+        <button class="note pill" aria-label="Abrir pista: convierte preguntas en criterios" data-title="Convierte preguntas en criterios" data-text="Para responder con rigor, define qué observarás, qué evidencia necesitas, de dónde la obtendrás y cómo la analizarás. Una conclusión debe estar respaldada por información suficiente. Algunas técnicas e instrumentos posibles: entrevistas, cuestionarios, encuestas, foros de discusión, análisis de contenido, guías de observación, listas de cotejo, escalas de actitud, pruebas de rendimiento y herramientas estadísticas."><b>+</b> Una pista</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Parada 03 · Un camino posible ===== -->
+<section class="sec" style="padding-top:30px">
+  <div class="wrap">
+    <div class="sh l3 reveal">
+      <h2><span class="wavy">Un camino posible</span></h2>
+      <p class="hand" style="font-size:1.45rem;color:var(--muted);max-width:none">No es una receta rígida: es una forma de ordenar el trabajo.</p>
+    </div>
+    <div class="kicker reveal" style="text-align:center;margin:-4px 0 14px">Del primer interrogante a la acción</div>
+    <div class="trail">
+      <svg class="pathsvg" viewBox="0 0 1080 196" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M127 58C265 58 265 124 402 124C540 124 540 58 678 58C815 58 815 124 953 124" fill="none" stroke="#829f94" stroke-width="3" stroke-dasharray="7 7" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+      </svg>
+      <span class="hand annot" style="left:10px;top:-28px;transform:rotate(-5deg)">empieza aquí</span>
+      <div class="steps">
+        <div class="stp reveal"><span class="bubble">01</span><b>Planificar</b><span class="t">Definir propósito, criterios y preguntas.</span></div>
+        <div class="stp reveal"><span class="bubble">02</span><b>Escuchar y recoger</b><span class="t">Reunir documentos, observaciones y voces relevantes.</span></div>
+        <div class="stp reveal"><span class="bubble">03</span><b>Interpretar</b><span class="t">Relacionar las evidencias con los criterios.</span></div>
+        <div class="stp reveal"><span class="bubble">04</span><b>Actuar</b><span class="t">Compartir hallazgos y proponer mejoras.</span></div>
+      </div>
+      <button class="note pill" aria-label="Abrir nota: un proceso que aprende" data-title="Un proceso que aprende" data-text="En la metodología de la unidad se identifican los niveles de concreción curricular, la misión y visión, los objetivos curriculares y el perfil del egresado; se analiza la congruencia y vigencia de los objetivos; se determina la viabilidad según los recursos humanos y materiales; y se estudian las variables curriculares (propósitos, contenidos, metodología, recursos, criterios y formas de evaluación). Las etapas concretas dependen del modelo y del contexto. La evaluación tiene sentido cuando los hallazgos se comunican con claridad y ayudan a tomar decisiones razonadas."><b>+</b> Un proceso que aprende</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Parada 04 · Modelos (tarjetas que se voltean) ===== -->
+<section class="band lilac">
+  <svg class="edge t" viewBox="0 0 1200 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24V12C110 22 200 -2 320 12S520 22 620 12S820 -2 920 12S1110 22 1200 12V24Z"/></svg>
+  <svg class="edge b" viewBox="0 0 1200 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24V8C95 -2 190 20 305 8S505 -2 605 8S805 20 905 8S1105 -2 1200 8V24Z"/></svg>
+  <div class="wrap">
+    <div class="sh l1 reveal" style="position:relative">
+      <span class="bignum" aria-hidden="true">04</span>
+      <div class="txt"><h2>Cuatro modelos, cuatro miradas <span class="scribble">✦</span></h2><p>Cada autor propone una forma distinta de observar y valorar un currículo.</p></div>
+      <span class="hand hnote">toca cada tarjeta para voltearla ↻</span>
+    </div>
+    <div class="flips">
+      <div class="fw1 reveal">
+        <button class="flip" type="button" aria-pressed="false" aria-label="Modelo de Tyler, 1949. Pulsa para voltear la tarjeta">
+          <span class="flip-in">
+            <span class="face front f1"><svg class="ico lg" aria-hidden="true" style="--f:#d96d54"><use href="#i-target"/></svg><span class="number" style="margin-top:2px">Tyler · 1949</span><span class="ft">Objetivos conductuales</span><span class="hand hint">voltear ↻</span></span>
+            <span class="face bface"><span class="number">Qué propone</span><span class="bt">Evalúa en qué grado las experiencias de aprendizaje planificadas alcanzan los objetivos previamente establecidos.</span></span>
+          </span>
+        </button>
+      </div>
+      <div class="fw2 reveal">
+        <button class="flip" type="button" aria-pressed="false" aria-label="Modelo CIPP de Stufflebeam, 1971. Pulsa para voltear la tarjeta">
+          <span class="flip-in">
+            <span class="face front f2"><svg class="ico lg" aria-hidden="true" style="--f:#b9d2d6"><use href="#i-compass"/></svg><span class="number" style="margin-top:2px">Stufflebeam · 1971</span><span class="ft">Modelo CIPP</span><span class="hand hint">voltear ↻</span></span>
+            <span class="face bface"><span class="number">Cuatro dimensiones continuas</span><span class="bt">Contexto (necesidades del entorno), insumo (recursos y estrategia), proceso (ejecución en el aula) y producto (resultados e impacto).</span></span>
+          </span>
+        </button>
+      </div>
+      <div class="fw3 reveal">
+        <button class="flip" type="button" aria-pressed="false" aria-label="Modelo respondiente de Stake, 1967. Pulsa para voltear la tarjeta">
+          <span class="flip-in">
+            <span class="face front f3"><svg class="ico lg" aria-hidden="true" style="--f:#e8bd54"><use href="#i-chat"/></svg><span class="number" style="margin-top:2px">Stake · 1967</span><span class="ft">Modelo respondiente</span><span class="hand hint">voltear ↻</span></span>
+            <span class="face bface"><span class="number">Qué propone</span><span class="bt">Atiende las inquietudes reales de profesores, estudiantes y comunidad, y relaciona antecedentes, transacciones y resultados.</span></span>
+          </span>
+        </button>
+      </div>
+      <div class="fw4 reveal">
+        <button class="flip" type="button" aria-pressed="false" aria-label="Crítica artística de Eisner, 1985. Pulsa para voltear la tarjeta">
+          <span class="flip-in">
+            <span class="face front f4"><svg class="ico lg" aria-hidden="true" style="--f:#d4c9df"><use href="#i-brush"/></svg><span class="number" style="margin-top:2px">Eisner · 1985</span><span class="ft">Crítica artística</span><span class="hand hint">voltear ↻</span></span>
+            <span class="face bface"><span class="number">Qué propone</span><span class="bt">Concibe la enseñanza como un arte y la evaluación como apreciación experta (connoisseurship) del clima de aula y el currículo oculto.</span></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Parada 05 · Dentro y fuera ===== -->
+<section class="sec" style="padding-top:30px">
+  <div class="wrap">
+    <div class="sh l2 reveal">
+      <span class="label">Parada 05</span>
+      <h2>Desde dentro y desde fuera</h2>
+      <p>Dos miradas que se complementan para decidir si conservar, modificar o sustituir un currículo.</p>
+    </div>
+    <div class="duo">
+      <article class="card panel pL reveal">
+        <i class="tape" style="left:40px"></i>
+        <div class="row"><svg class="ico lg" aria-hidden="true" style="--f:#e8bd54"><use href="#i-school"/></svg><div class="number">Evaluación interna</div></div>
+        <h3>Mirar el <span class="mk sg">proceso</span></h3>
+        <p>Se centra en cómo funciona el programa y se valora a través de su eficiencia y su eficacia.</p>
+        <button class="note pill" aria-label="Abrir nota: qué se analiza por dentro" data-title="Qué se analiza por dentro" data-text="Congruencia entre los objetivos curriculares, vigencia de los objetivos, viabilidad del currículo, secuencia entre cursos, adecuación de contenidos y actividades, operatividad de los aspectos académico-administrativos, actividad docente y su relación con el rendimiento académico, y factores relacionados con ese rendimiento."><b>+</b> Qué se analiza</button>
+      </article>
+      <div class="vs hand" aria-hidden="true">&amp;</div>
+      <article class="card panel pR reveal">
+        <i class="tape t2" style="left:auto;right:44px"></i>
+        <div class="row"><svg class="ico lg" aria-hidden="true" style="--f:#b9d2d6"><use href="#i-globe"/></svg><div class="number">Evaluación externa</div></div>
+        <h3>Mirar el <span class="mk bl">producto</span></h3>
+        <p>Se relaciona con el producto como proceso final del contexto educativo: qué ocurre cuando el egresado sale al entorno.</p>
+        <button class="note pill" aria-label="Abrir nota: qué se investiga por fuera" data-title="Qué se investiga por fuera" data-text="Investigación continua de las necesidades sociales que debe abordar el profesional, del mercado ocupacional y las habilidades que requiere el egresado, de los alcances de la labor profesional y de las funciones desarrolladas en el desempeño laboral, con comparación frente a egresados de otras instituciones."><b>+</b> Qué se investiga</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Parada 06 · Mapa y cita ===== -->
+<section class="band blue">
+  <svg class="edge t" viewBox="0 0 1200 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24V10C100 -2 200 22 305 10S505 -2 605 10S805 22 905 10S1105 -2 1200 10V24Z"/></svg>
+  <svg class="edge b" viewBox="0 0 1200 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24V12C105 22 205 -2 315 12S515 22 615 12S815 -2 915 12S1105 22 1200 12V24Z"/></svg>
+  <div class="wrap">
+    <div class="sh l4 reveal">
+      <h2>Un mapa de ideas</h2>
+      <p>Toca cada círculo para ver qué aporta a la evaluación curricular.</p>
+    </div>
+    <div class="row-f">
+      <article class="card map-card reveal">
+        <i class="tape"></i>
+        <div class="mapbox">
+          <svg viewBox="0 0 500 285" role="img" aria-label="Mapa interactivo con cuatro dimensiones">
+            <path d="M250 140 Q180 80 105 58 M250 140 Q320 80 395 58 M250 140 Q180 200 105 225 M250 140 Q320 200 395 225" stroke="#829f94" stroke-width="3" stroke-dasharray="5 5" fill="none"/>
+            <path d="M184 111 Q250 90 316 111 L316 168 Q250 190 184 168Z" fill="#253b36" stroke="#253b36"/>
+            <text x="250" y="137" fill="#fffdf7" font-size="15" text-anchor="middle" font-weight="700">Evaluación</text><text x="250" y="156" fill="#fffdf7" font-size="15" text-anchor="middle" font-weight="700">curricular</text>
+
+            <g class="map-pin" tabindex="0" role="button" aria-label="Diseño" data-title="Diseño" data-text="Observa los propósitos, los objetivos, la selección de contenidos y la relación entre los componentes del currículo.">
+              <path d="M67 39 Q103 14 137 40 Q154 68 126 83 Q92 96 69 76 Q53 58 67 39Z" fill="#eac3b6" stroke="#253b36" stroke-width="1.5"/><text x="105" y="61" font-size="12" text-anchor="middle" fill="#253b36" font-weight="700">Diseño</text>
+              <circle class="ring" cx="141" cy="27" r="11" fill="none" stroke="#d96d54" stroke-width="2"><animate attributeName="r" values="11;24" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="1.8s" repeatCount="indefinite"/></circle>
+              <circle class="ring hl" cx="141" cy="27" r="11" fill="none" stroke="#e8bd54" stroke-width="4"><animate attributeName="r" values="11;34" dur="1s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="1s" repeatCount="indefinite"/></circle>
+              <circle cx="141" cy="27" r="11" fill="#d96d54" stroke="#253b36" stroke-width="1.5"/><text x="141" y="33" font-size="17" text-anchor="middle" fill="#fff">+</text>
+            </g>
+            <g class="map-pin" tabindex="0" role="button" aria-label="Contexto" data-title="Contexto" data-text="Considera las necesidades, características y condiciones del entorno donde se desarrolla la propuesta curricular.">
+              <path d="M361 39 Q396 15 428 41 Q448 63 424 82 Q389 96 365 75 Q350 58 361 39Z" fill="#e8bd54" stroke="#253b36" stroke-width="1.5"/><text x="395" y="61" font-size="12" text-anchor="middle" fill="#253b36" font-weight="700">Contexto</text>
+              <circle class="ring" cx="434" cy="29" r="11" fill="none" stroke="#d96d54" stroke-width="2"><animate attributeName="r" values="11;24" dur="1.8s" begin=".4s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="1.8s" begin=".4s" repeatCount="indefinite"/></circle>
+              <circle class="ring hl" cx="434" cy="29" r="11" fill="none" stroke="#e8bd54" stroke-width="4"><animate attributeName="r" values="11;34" dur="1s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="1s" repeatCount="indefinite"/></circle>
+              <circle cx="434" cy="29" r="11" fill="#d96d54" stroke="#253b36" stroke-width="1.5"/><text x="434" y="35" font-size="17" text-anchor="middle" fill="#fff">+</text>
+            </g>
+            <g class="map-pin" tabindex="0" role="button" aria-label="Proceso" data-title="Proceso" data-text="Mira cómo se desarrolla el currículo en la práctica: estrategias, recursos, participación y condiciones de implementación.">
+              <path d="M68 205 Q101 180 136 205 Q153 230 126 249 Q92 262 69 242 Q53 225 68 205Z" fill="#b9d2d6" stroke="#253b36" stroke-width="1.5"/><text x="105" y="229" font-size="12" text-anchor="middle" fill="#253b36" font-weight="700">Proceso</text>
+              <circle class="ring" cx="140" cy="196" r="11" fill="none" stroke="#d96d54" stroke-width="2"><animate attributeName="r" values="11;24" dur="1.8s" begin=".8s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="1.8s" begin=".8s" repeatCount="indefinite"/></circle>
+              <circle class="ring hl" cx="140" cy="196" r="11" fill="none" stroke="#e8bd54" stroke-width="4"><animate attributeName="r" values="11;34" dur="1s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="1s" repeatCount="indefinite"/></circle>
+              <circle cx="140" cy="196" r="11" fill="#d96d54" stroke="#253b36" stroke-width="1.5"/><text x="140" y="202" font-size="17" text-anchor="middle" fill="#fff">+</text>
+            </g>
+            <g class="map-pin" tabindex="0" role="button" aria-label="Resultados" data-title="Resultados" data-text="Analiza las evidencias disponibles para reconocer logros, límites y aspectos que necesitan revisión.">
+              <path d="M360 205 Q394 180 428 205 Q446 230 423 249 Q389 262 365 242 Q350 225 360 205Z" fill="#d4c9df" stroke="#253b36" stroke-width="1.5"/><text x="395" y="229" font-size="12" text-anchor="middle" fill="#253b36" font-weight="700">Resultados</text>
+              <circle class="ring" cx="431" cy="196" r="11" fill="none" stroke="#d96d54" stroke-width="2"><animate attributeName="r" values="11;24" dur="1.8s" begin="1.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="1.8s" begin="1.2s" repeatCount="indefinite"/></circle>
+              <circle class="ring hl" cx="431" cy="196" r="11" fill="none" stroke="#e8bd54" stroke-width="4"><animate attributeName="r" values="11;34" dur="1s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="1s" repeatCount="indefinite"/></circle>
+              <circle cx="431" cy="196" r="11" fill="#d96d54" stroke="#253b36" stroke-width="1.5"/><text x="431" y="202" font-size="17" text-anchor="middle" fill="#fff">+</text>
+            </g>
+          </svg>
+        </div>
+      </article>
+      <article class="card quote-card reveal">
+        <i class="tape t3" style="left:50%;margin-left:-39px"></i>
+        <svg class="ico" aria-hidden="true" style="--f:#e8bd54"><use href="#i-pencil"/></svg>
+        <div class="number" style="margin-top:4px">Para llevar contigo</div>
+        <div class="quote">“Evaluar no es cerrar una conversación; es encontrar <span class="mk">mejores preguntas</span> para seguir aprendiendo”.</div>
+        <p style="margin-top:9px">La evaluación curricular cobra valor cuando los criterios son claros, las evidencias son pertinentes y los resultados se traducen en decisiones.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Referencias ===== -->
+<section class="sec" style="padding-top:30px">
+  <div class="wrap">
+    <div class="sh l1 reveal">
+      <div class="txt"><h2>Para seguir explorando <span class="scribble">✎</span></h2><p>Lecturas y fuentes en las que se apoya esta unidad.</p></div>
+    </div>
+    <section class="references reveal" aria-label="Referencias bibliográficas">
+      <i class="tape" style="left:70px"></i>
+      <div class="ref-intro">
+        <span class="sticker">Referencias</span>
+        <h3>Bibliografía</h3>
+        <span class="hand">para seguir leyendo</span>
+      </div>
+      <ol class="apa-list">
+        <li>Broch, E., &amp; Rodríguez, M. (2018). La evaluación curricular: Un marco integral para el análisis institucional. <i>Revista Iberoamericana de Educación Superior, 9</i>(24), 45–62.</li>
+        <li>Casanova, M. A. (1998). <i>La evaluación educativa: Escuela básica</i>. Editorial Muralla.</li>
+        <li>Díaz-Barriga, F., Lule, M. A., Pacheco, D., Rojas, S., &amp; Saad, E. (1990). <i>Metodología de diseño curricular para educación superior</i>. Editorial Trillas.</li>
+        <li>Eisner, E. W. (1998). <i>El ojo ilustrado: Indagación cualitativa y mejora de la práctica educativa</i>. Editorial Paidós.</li>
+        <li>Ministerio de Educación del Ecuador. (2022). <i>Instructivo de evaluación estudiantil de los servicios educativos ordinarios</i>. Dirección Nacional de Currículo.</li>
+        <li>Posner, G. J. (2005). <i>Análisis del currículo</i> (3.ª ed.). McGraw-Hill Interamericana.</li>
+        <li>Stake, R. E. (1967). The countenance of educational evaluation. <i>Teachers College Record, 68</i>(7), 523–540.</li>
+        <li>Stufflebeam, D. L., &amp; Shinkfield, A. J. (1987). <i>Systematic evaluation: A self-instructional guide to theory and practice</i>. Kluwer-Nijhoff Publishing.</li>
+        <li>Stufflebeam, D. L., &amp; Shinkfield, A. J. (2007). <i>Evaluación sistemática: Guía teórica y práctica</i>. Editorial Paidós.</li>
+        <li>Tyler, R. W. (1949). <i>Basic principles of curriculum and instruction</i>. The University of Chicago Press.</li>
+      </ol>
+    </section>
+  </div>
+  <footer class="footer"><span>Evaluación curricular</span><span>Unidad 1 · Cuaderno visual</span></footer>
+</section>
+</main>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-box"><button class="close" id="close" aria-label="Cerrar">×</button><div class="kicker">Una nota más</div><h2 id="modal-title"></h2><p id="modal-text"></p><button class="back" id="close-bottom">Volver a la infografía ✓</button></div>
+</div>
+<script>
+document.documentElement.classList.add('js');
+/* aparición suave al hacer scroll */
+(function(){
+ const els=document.querySelectorAll('.reveal');
+ if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return}
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08});
+ els.forEach(e=>io.observe(e));
+})();
+
+/* notas y mapa */
+const modal=document.getElementById('modal'),titleEl=document.getElementById('modal-title'),textEl=document.getElementById('modal-text');
+const interactionToggle=document.getElementById('interaction-toggle');
+interactionToggle.addEventListener('click',()=>{
+ const active=document.body.classList.toggle('show-interactives');
+ interactionToggle.setAttribute('aria-pressed',String(active));
+ const tip=active?'Ocultar resaltado':'Resaltar elementos interactivos';
+ interactionToggle.dataset.tip=tip;interactionToggle.setAttribute('aria-label',tip);
+});
+function openInfo(title,text){titleEl.textContent=title;textEl.textContent=text;modal.classList.add('open');document.getElementById('close').focus()}
+function closeInfo(){modal.classList.remove('open')}
+document.querySelectorAll('[data-title]').forEach(el=>{
+ el.addEventListener('click',()=>openInfo(el.dataset.title,el.dataset.text));
+ if(el.classList.contains('map-pin'))el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openInfo(el.dataset.title,el.dataset.text)}});
+});
+document.getElementById('close').addEventListener('click',closeInfo);
+document.getElementById('close-bottom').addEventListener('click',closeInfo);
+modal.addEventListener('click',e=>{if(e.target===modal)closeInfo()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeInfo()});
+
+/* tarjetas que se voltean */
+document.querySelectorAll('.flip').forEach(b=>b.addEventListener('click',()=>{
+ const on=b.classList.toggle('on');b.setAttribute('aria-pressed',String(on));
+}));
+
+</script>
+</body>
+</html>
